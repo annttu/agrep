@@ -6,10 +6,12 @@ Agrep is grep that shows also related rows. Useful tool for maillogs etc.
 Example
 =======
 
+<pre>
 $ agrep annttu@localhost /var/log/mail.log
-Nov 18 20:59:22 postfix: DDF8344D922D: to=<annttu@localhost>, relay=local, delay=0.02, ...
+Nov 18 20:59:22 postfix: DDF8344D922D: to=&lt;annttu@localhost&gt;, relay=local, delay=0.02, ...
 Nov 18 20:59:22 postfix: DDF8344D922D: removed
 $
+</pre>
 
 There pattern annttu@localhost and next row are connected with pattern DDF8344D922D
 
