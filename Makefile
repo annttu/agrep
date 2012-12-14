@@ -1,9 +1,12 @@
 GPP = g++
 LDFLAGS = -lm
-CXXFLAGS = -g
+CXXFLAGS = -g -funroll-all-loops -O3
 
 project: 
 	$(GPP) agrep.cpp $(CXXFLAGS) $(LDFLAGS) -o agrep
+
+strip:
+	strip agrep
 
 all: project
 
