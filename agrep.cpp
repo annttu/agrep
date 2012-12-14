@@ -123,19 +123,19 @@ void colorize_pattern(string* line, string* pattern) {
 int main(int argc, char* argv[]) {
     int index = 1;
     for (;index<argc; index++) {
-        if (strcmp(argv[index],"-n")) {
+        if (strcmp(argv[index],"-n") == 0) {
             number_lines = true;
         }
         else break;
     }
     string line;
     string date, message;
-    if (index+2 >= argc) {
+    if (index+2 > argc) {
         help();
         return 1;
     }
-    patterns.push_back(argv[index+1]);
-    index += 2;
+    patterns.push_back(argv[index]);
+    index += 1;
     do {
         string logfile (argv[index]);
         ifstream fhandle(logfile.c_str());
