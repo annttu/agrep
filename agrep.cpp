@@ -13,10 +13,11 @@ better algorithm to separate english words from patterns
 #include <fstream>
 #include <string>
 #include <vector>
+#include <string.h>
 
 using namespace std;
 
-const int DATEPART = 2;
+const int DATEPART = 1;
 const int PATTERNT_MIN_LENGTH = 10;
 const string RED = "\033[1;31m";
 const string GREEN = "\033[1;32m";
@@ -26,7 +27,16 @@ char const validChars[] = "abcdefghijklmnopqrstuvwxyz"
                           "0123456789"
                           "-";
 
-vector<string> patterns;
+vector<std::string> patterns;
+// Ignore these words
+vector<std::string> ignored;
+
+void add_ignored(void)
+{
+    ignored.push_back((std::string)"SAEximRunCond");
+    ignored.push_back((std::string)"Message-Id");
+}
+
 bool number_lines = false;
 bool iterate_twice = false;
 bool DEBUG = false;
@@ -60,6 +70,10 @@ string get_date(string* line) {
 inline bool validate_pattern(string* pattern) {
     if ((*pattern).length() < PATTERNT_MIN_LENGTH) {
         return false;
+    }
+    for (std::vector<string>::iterator it = ignored.begin() ; it != ignored.end(); ++it)
+    {
+        if (it->compare(*pattern) == 0) return false;
     }
     return strspn((*pattern).c_str(), validChars) == strlen((*pattern).c_str());
 }
@@ -128,6 +142,7 @@ int main(int argc, char* argv[]) {
         }
         else break;
     }
+    add_ignored();
     string line;
     string date, message;
     if (index+2 > argc) {
